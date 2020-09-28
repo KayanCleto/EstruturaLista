@@ -1,0 +1,102 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int fibbonacci(int n) {
+   if(n == 0){
+      return 0;
+   } else if(n == 1) {
+      return 1;
+   } else {
+      return (fibbonacci(n-1) + fibbonacci(n-2));
+   }
+}
+
+struct no {
+   int valor;                 // Valor inteiro
+  struct no* prox;       // Ponteiro para o proximo elemento
+};
+
+typedef struct no*lista;
+
+/* função de criação de lista: retorna lista vazia*/
+lista cria() {
+    return NULL;
+}
+
+/*Insere no inicio da lista*/ 
+lista insere(lista l, int i)
+{
+    lista novo = (lista) malloc(sizeof(lista));
+    novo->valor = i;
+    novo->prox = l;
+    return novo;
+}
+
+/* função vazia: retorno 1 se vazia ou 0 se não vazia*/
+int lista_vazia(lista l) {
+   if(l == NULL)
+      return 1;  // Retorna 1 que significa verdadeiro, a lista está vazia
+    else
+      return 0; // Retorna 0 que significa falso, a lista não está vazia
+}
+
+/* função verlist: ve quais valores estão dentro da lista*/
+void verlist (lista v){
+	if(!lista_vazia(v)){
+		printf("%i ",v->valor);
+		verlist(v->prox);
+		
+	}	
+}
+
+/* função inverter: pega as posições e as inverte*/
+lista inverter(lista l){
+	
+	lista x ;
+	lista y = l;
+	lista z = NULL;
+
+while(y!=NULL){
+	x = y->prox;
+	y->prox = z;
+	z = y;
+	y = x;
+}
+ return z;	
+}
+
+int main() { 
+	lista list;
+	list = cria();
+	int n,opc;
+	
+	printf("De uma valor:");
+	scanf("%i",&n);
+	
+	printf("Deseja ver a lista normal ou invertida?\n");
+	printf("1 - normal\n");
+	printf("2 - invertida\n");
+	scanf("%i",&opc);
+
+   int i;
+
+   printf("Fibbonacci of %d: " , n);
+    while(n !=0){
+    	
+    list = insere(list, fibbonacci(n));       
+	n--;
+	}
+ 
+ 	if(opc == 1){
+	 
+	 verlist(list);
+	 
+	 }
+	 else{
+	verlist(inverter(list));
+	 }
+	 
+ 
+}
+
+
